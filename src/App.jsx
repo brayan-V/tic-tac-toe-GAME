@@ -26,10 +26,14 @@ function App() {
   const [board, setBoard] = useState(
     Array(9).fill(null)
   );//estado inicial del tablero
-
-  const [turn, setTurn] = useState(TURNS.X)// estado inicial del turno
+// estado inicial del turno
+  const [turn, setTurn] = useState(TURNS.X)
+  // null es que no hay ganador, false es que hay un empate
+  const [winner, setWinner] = useState(null)
 
   const updateBoard = (index) =>{
+    // no actualizamos esta posicion si ya contiene algo
+    if (board[index]) return;
     // actualizamos el estado del tablero
     const newBoard = [...board]; // newBoard contiene una copia del tablero
     newBoard[index] = turn; // actualizamos el estado del tablero en la posicion del index
@@ -42,7 +46,7 @@ function App() {
 
   return (
       <main className="board">
-        <h1>TIC TAC TOE</h1>
+        <h1>TIC TAC TOE( TRIKI )</h1>
         <section className="game">
           {board.map((_, index) => {
             return (
