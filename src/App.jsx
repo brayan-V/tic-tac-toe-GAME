@@ -56,6 +56,12 @@ function App() {
     // si no hay ganador
     return null
   }
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
+  }
   const updateBoard = (index) =>{
     // no actualizamos esta posicion si ya contiene algo
     if (board[index] || winner) return
@@ -70,12 +76,13 @@ function App() {
     const newWinner = checkWinner(newBoard)
     if (newWinner){
       setWinner(newWinner)
-    }
+    }// TO DO: check if game over
   }
 
   return (
       <main className="board">
         <h1>TIC TAC TOE( TRIKI )</h1>
+        <button onClick={resetGame}>Reiniciar</button>
         <section className="game">
           {board.map((_, index) => {
             return (
@@ -98,6 +105,28 @@ function App() {
             {TURNS.O}
           </Square>
         </section>
+        {
+          winner != null && (
+            <section className = "winner">
+              <div className ="text">
+                <h2>
+                  {
+                    winner == false
+                    ? "Empate"
+                    : "Ganó"
+                  }
+                </h2>
+                <header className ="win">
+                  {winner && <Square>{winner}</Square>}
+                </header>
+
+                <footer>
+                  <button onClick={resetGame}>Empezar de nuevo</button>
+                </footer>
+              </div>
+            </section>
+          )
+        }
       </main>
     );
   }
